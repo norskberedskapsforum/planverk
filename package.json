@@ -1,0 +1,30 @@
+{
+  "name": "planverk",
+  "version": "1.0.0",
+  "description": "Create plans, checklists and printable PDFs",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/norskberedskapsforum/planverk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/norskberedskapsforum/planverk/issues"
+  },
+  "homepage": "https://github.com/norskberedskapsforum/planverk#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pdfkit": "^0.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
