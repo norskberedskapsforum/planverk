@@ -1,0 +1,70 @@
+{
+  "id": "soi",
+  "title": "Sambandsoperasjonsinstruks",
+  "shortTitle": "SOI",
+  "description": "En enkel mal for sambandsplan, kanaler, kallesignaler og prosedyrer.",
+  "fields": [
+    {
+      "name": "operationName",
+      "label": "Operasjon / aktivitet",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "validFrom",
+      "label": "Gyldig fra",
+      "type": "date"
+    },
+    {
+      "name": "validTo",
+      "label": "Gyldig til",
+      "type": "date"
+    },
+    {
+      "name": "preparedBy",
+      "label": "Utarbeidet av",
+      "type": "text"
+    },
+    {
+      "name": "purpose",
+      "label": "Formål",
+      "type": "textarea"
+    },
+    {
+      "name": "primaryChannel",
+      "label": "Primær kanal / talegruppe",
+      "type": "text"
+    },
+    {
+      "name": "secondaryChannel",
+      "label": "Sekundær kanal / talegruppe",
+      "type": "text"
+    },
+    {
+      "name": "emergencyChannel",
+      "label": "Nødkanal / reserve",
+      "type": "text"
+    },
+    {
+      "name": "callSigns",
+      "label": "Kallesignaler",
+      "type": "table",
+      "columns": [
+        { "name": "callSign", "label": "Kallesignal" },
+        { "name": "role", "label": "Rolle / funksjon" },
+        { "name": "name", "label": "Navn / enhet" },
+        { "name": "notes", "label": "Merknad" }
+      ]
+    },
+    {
+      "name": "radioProcedure",
+      "label": "Sambandsprosedyre",
+      "type": "textarea"
+    },
+    {
+      "name": "fallbackPlan",
+      "label": "Reserveplan ved bortfall av samband",
+      "type": "textarea"
+    }
+  ]
+}

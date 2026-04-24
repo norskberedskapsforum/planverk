@@ -1,16 +1,9 @@
-const express = require("express");
-const path = require("path");
+require("dotenv").config();
 
-const app = express();
+const app = require("./app");
+
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "../public")));
-
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok" });
-});
-
 app.listen(PORT, () => {
-  console.log(`Planverk running on port ${PORT}`);
+  console.log(`Planverk running on http://localhost:${PORT}`);
 });

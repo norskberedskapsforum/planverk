@@ -1,0 +1,43 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #f6f6f6;
+  margin: 0;
+  padding: 2rem;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.field {
+  margin-top: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.65rem;
+  font: inherit;
+}
+
+textarea {
+  min-height: 90px;
+}
+
+button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
