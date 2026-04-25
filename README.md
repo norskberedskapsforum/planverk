@@ -2,7 +2,7 @@
 
 Planverk is an open-source toolkit for creating practical preparedness, communications and operational planning documents.
 
-Join us at our forum: [Norsk Beredskapsforum]([https://discord.gg/6uaVHjtfXN](https://norskberedskapsforum.no/topic/463-prosjekt-planverk-nettbasert-verktøy-for-å-lage-dokumenter-til-beredskapsplaner/))
+Join us at our forum: [Norsk Beredskapsforum project thread](https://norskberedskapsforum.no/topic/463-prosjekt-planverk-nettbasert-verktøy-for-å-lage-dokumenter-til-beredskapsplaner/)
 
 ## Current tools in the project is:
 
