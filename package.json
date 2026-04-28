@@ -1,6 +1,6 @@
 {
   "name": "planverk",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Create plans, checklists and printable PDFs",
   "main": "src/server.js",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "AGPL-3.0",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/norskberedskapsforum/planverk/issues"
