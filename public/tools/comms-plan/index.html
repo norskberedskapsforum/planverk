@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kommunikasjonsplan</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Kommunikasjonsplan</h1>
+
+      <form id="form">
+        <label>Operasjonsnavn</label>
+        <input name="operationName" />
+
+        <label>Laget av</label>
+        <input name="preparedBy" />
+
+        <label>Gradering</label>
+        <select name="classification">
+          <option value="Ugradert">Ugradert</option>
+          <option value="Konfidensielt">Konfidensielt</option>
+          <option value="Strengt konfidensielt">Strengt konfidensielt</option>
+        </select>
+
+        <button type="submit">Eksporter PDF</button>
+      </form>
+    </main>
+
+    <script src="/tools/comms-plan/app.js"></script>
+  </body>
+</html>
