@@ -1,0 +1,14 @@
+{
+  "id": "kanalplan",
+  "title": "Kanalplan",
+  "shortTitle": "KP",
+  "description": "En enkel mal for kanalplan med kallesignaler og prosedyrer.",
+  "fields": [
+    {
+      "name": "operationName",
+      "label": "Operasjon / aktivitet",
+      "type": "text",
+      "required": true
+    }
+  ]
+}

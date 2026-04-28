@@ -1,8 +1,7 @@
 const express = require("express");
 const path = require("path");
 
-const formsRoutes = require("./routes/forms.routes");
-const pdfRoutes = require("./routes/pdf.routes");
+const routes = require("./routes/index.routes");
 
 const app = express();
 
@@ -11,15 +10,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "../public")));
 
-// Routes for forms API endpoints
-app.use("/api/forms", formsRoutes);
+app.use(routes);
 
-// Routes for PDF generation API endpoints
-app.use("/api/pdf", pdfRoutes);
-
-// Health check endpoint
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok" });
+app.get("/", (req, res) => {
+  res.redirect("/tools/comms-plan");
 });
 
 module.exports = app;

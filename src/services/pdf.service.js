@@ -5,47 +5,48 @@ const path = require("path");
 function generatePdf(form, data, res) {
   const doc = new PDFDocument({
     size: "A4",
-    margin: 50
+    margin: 10,
+    layout: "landscape",
   });
 
   res.setHeader("Content-Type", "application/pdf");
-  res.setHeader(
-    "Content-Disposition",
-    `attachment; filename="${form.id}.pdf"`
-  );
+  res.setHeader("Content-Disposition", `attachment; filename="${form.id}.pdf"`);
 
   doc.pipe(res);
 
-  const logoPath = path.join(__dirname, "../../public/assets/logo.png");
+  //const logoPath = path.join(__dirname, "../../public/assets/logo.png");
 
-doc.image(logoPath, 50, 35, {
-  width: 40
-});
+  //doc.image(logoPath, 50, 35, {
+  //  width: 40,
+  //});
 
-doc
-  .fontSize(22)
-  .text(form.title, 100, 45);
+  //doc.fontSize(22).text(form.title, 100, 45);
 
-if (form.shortTitle) {
-  doc
-    .fontSize(11)
-    .text(form.shortTitle, 100, 70);
-}
+  /*if (form.shortTitle) {
+    doc.fontSize(11).text(form.shortTitle, 100, 70);
+  }*/
 
-doc.moveDown(4);
+  //doc.moveDown(4);
 
-  doc.fontSize(22).text(form.title, { align: "center" });
+  // doc.fontSize(22).text(form.title, { align: "center" });
 
-  if (form.shortTitle) {
+  /*if (form.shortTitle) {
     doc.moveDown(0.5);
     doc.fontSize(12).text(form.shortTitle, { align: "center" });
-  }
+  }*/
 
-  doc.moveDown(2);
+  //doc.moveDown(4);
 
-  for (const field of form.fields) {
+  doc.table({
+    data: [
+      ["Column 1", "Column 2", "Column 3"],
+      ["One value goes here", "Another one here", "OK?"],
+    ],
+  });
+
+  /*for (const field of form.fields) {
     renderField(doc, field, data[field.name]);
-  }
+  }*/
 
   doc.end();
 }
@@ -58,7 +59,7 @@ function renderField(doc, field, value) {
     renderTable(doc, field, value || []);
   } else {
     doc.fontSize(11).text(value || "-", {
-      width: 500
+      width: 500,
     });
   }
 
@@ -73,9 +74,7 @@ function renderTable(doc, field, rows) {
 
   for (const row of rows) {
     for (const column of field.columns) {
-      doc
-        .fontSize(10)
-        .text(`${column.label}: ${row[column.name] || "-"}`);
+      doc.fontSize(10).text(`${column.label}: ${row[column.name] || "-"}`);
     }
 
     doc.moveDown(0.5);
@@ -83,5 +82,5 @@ function renderTable(doc, field, rows) {
 }
 
 module.exports = {
-  generatePdf
+  generatePdf,
 };
