@@ -21,7 +21,7 @@ Planverk can be self-hosted with Docker or run locally with Node.js.
 
 ---
 
-# Project Goals
+## Project Goals
 
 Planverk aims to provide:
 
@@ -33,9 +33,9 @@ Planverk aims to provide:
 
 ---
 
-# Current Tools
+## Current Tools
 
-## Communications Plan
+### Communications Plan
 
 Create structured communication plans including:
 
@@ -54,7 +54,7 @@ Exports may include:
 
 ---
 
-# Tech Stack
+## Tech Stack
 
 - Node.js
 - Express
@@ -63,16 +63,63 @@ Exports may include:
 
 ---
 
-# Local Development
+## Local Development
 
 You can easily clone the repo to your local machine and contribute with code, fixes etc.
 
-## Requirements
+### Requirements
 
 - Node.js 20+
 - npm
 
-## Install
+### Install
 
-```bash
+```
+bash
 npm install
+```
+
+---
+
+## Host it yourself
+
+### Run with Docker
+
+1. Pull the image:
+```
+docker pull ghcr.io/norskberedskapsforum/planverk:latest
+```
+
+3. Run the container:
+```
+docker run -d \
+  --name planverk \
+  -p 3000:3000 \
+  -e NODE_ENV=production \
+  ghcr.io/norskberedskapsforum/planverk:latest
+```
+
+5. Open your browser:
+```
+http://<your-ip-address>:3000
+```
+
+
+### Run with Docker Compose (recommended)
+
+1. Create `docker-compose.yaml`:
+```
+services:
+  planverk:
+    image: ghcr.io/norskberedskapsforum/planverk:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+```
+2. Start:
+```
+docker compose up -d
+``
