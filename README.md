@@ -90,7 +90,7 @@ npm install
 docker pull ghcr.io/norskberedskapsforum/planverk:latest
 ```
 
-3. Run the container:
+2. Run the container:
 ```
 docker run -d \
   --name planverk \
@@ -99,7 +99,7 @@ docker run -d \
   ghcr.io/norskberedskapsforum/planverk:latest
 ```
 
-5. Open your browser:
+3. Open your browser:
 ```
 http://<your-ip-address>:3000
 ```
