@@ -2,7 +2,17 @@
 
 Planverk is an open-source toolkit for creating practical preparedness, communications and operational planning documents.
 
-Join us at our forum: [Norsk Beredskapsforum project thread](https://norskberedskapsforum.no/topic/463-prosjekt-planverk-nettbasert-verktøy-for-å-lage-dokumenter-til-beredskapsplaner/)
+Join us at our forum: [Norsk Beredskapsforum](https://norskberedskapsforum.no/)
+Visit project thread: [Norsk Beredskapsforum project thread](https://norskberedskapsforum.no/topic/463-prosjekt-planverk-nettbasert-verktøy-for-å-lage-dokumenter-til-beredskapsplaner/)
+
+## Table of Contents
+
+1. [Current tools in the project](https://github.com/norskberedskapsforum/planverk#current-tools-in-the-project-is)
+2. [Project Goals](https://github.com/norskberedskapsforum/planverk#project-goals)
+3. [Tech stack](https://github.com/norskberedskapsforum/planverk#tech-stack)
+4. [Local development](https://github.com/norskberedskapsforum/planverk#local-development)
+5. [Host it yourself](https://github.com/norskberedskapsforum/planverk#host-it-yourself)
+
 
 ## Current tools in the project is:
 
@@ -30,27 +40,6 @@ Planverk aims to provide:
 - Self-hosted friendly deployment
 - Open source collaboration
 - Privacy-friendly workflows
-
----
-
-## Current Tools
-
-### Communications Plan
-
-Create structured communication plans including:
-
-- Channels
-- Radio networks
-- Callsigns
-- Primary / backup communication paths
-- Codewords, crypto and privacy guides
-- Operational notes
-
-Exports may include:
-
-- Full communications plan
-- Quick reference sheets
-- Printable field documents
 
 ---
 
