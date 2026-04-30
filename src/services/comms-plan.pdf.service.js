@@ -61,7 +61,7 @@ function renderHeader(doc, data) {
   doc.fillColor("black");
 }
 
-function renderFullPlan(doc, data) {
+function renderFullPlan(doc/*, data*/) {
   /*renderInfoBox(doc, "Operation", [
     ["Name", data.operationName],
     ["Valid from", data.validFrom],
@@ -101,24 +101,24 @@ function renderFullPlan(doc, data) {
   //renderSection(doc, "Fallback / backup plan", data.fallbackPlan);
 }
 
-function renderChannelSheet(doc, data) {
+/*function renderChannelSheet(doc, data) {
   renderChannelsTable(doc, data.channels || []);
-}
+}*/
 
-function renderInfoBox(doc, title, rows) {
+/*function renderInfoBox(doc, title, rows) {
   doc.fontSize(13).text(title);
   doc.moveDown(0.3);
 
   for (const [label, value] of rows) {
     doc.fontSize(10).text(`${label}: ${value || "-"}`);
   }
-}
+}*/
 
-function renderSection(doc, title, value) {
+/*function renderSection(doc, title, value) {
   doc.fontSize(13).text(title);
   doc.moveDown(0.3);
   doc.fontSize(10).text(value || "-");
-}
+}*/
 
 function renderFixedChannelTable(doc, channels = []) {
   const startX = 20;
@@ -192,7 +192,7 @@ function renderSubtractionTable(doc) {
 
   const rowHeight = 14;
   const headerHeight = 16;
-  const rows = 24;
+  //const rows = 24;
 
   doc.rect(startX, startY, tableWidth, headerHeight).stroke();
 
@@ -209,12 +209,12 @@ function renderSubtractionTable(doc) {
     { label: "Code", key: "code", width: tableWidth - 60 },
   ];
 
-  y = startY + 20;
+  let y = startY + 20;
 
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
   for (const letter of alphabet) {
-    x = startX + 4;
+    let x = startX + 4;
 
     const row = {
       letter,
@@ -245,7 +245,7 @@ function renderAuthenticationTable(doc) {
 
   const rowHeight = 14;
   const headerHeight = 16;
-  const rows = 24;
+  //const rows = 24;
 
   doc.rect(startX, startY, tableWidth, headerHeight).stroke();
 
@@ -262,12 +262,12 @@ function renderAuthenticationTable(doc) {
     { label: "Code", key: "code", width: tableWidth - 20 },
   ];
 
-  y = startY + 20;
+  let y = startY + 20;
 
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
   for (const letter of alphabet) {
-    x = startX + 4;
+    let x = startX + 4;
 
     const row = {
       letter,
@@ -288,7 +288,7 @@ function renderAuthenticationTable(doc) {
   }
 }
 
-function renderChannelsTable(doc, channels) {
+/*function renderChannelsTable(doc, channels) {
   doc.fontSize(13).text("Channels");
   doc.moveDown(0.5);
 
@@ -321,7 +321,7 @@ function renderChannelsTable(doc, channels) {
 
     doc.fontSize(9).text(row.map((value) => value || "-").join(" | "));
   }
-}
+}*/
 
 function generateEightDigitCode() {
   const number = Math.floor(10000000 + Math.random() * 90000000).toString();
