@@ -1,5 +1,7 @@
 const PDFDocument = require("pdfkit");
 
+const packageJson = require(process.cwd() + "/package.json");
+
 async function generate(type, data, res) {
   const doc = new PDFDocument({
     size: "A4",
@@ -15,6 +17,8 @@ async function generate(type, data, res) {
   renderHeader(doc, data);
 
   renderFullPlan(doc, data);
+
+  renderBottomInfo(doc);
 
   doc.end();
 }
@@ -60,6 +64,23 @@ function renderHeader(doc, data) {
 
   doc.fillColor("black");
 }
+
+function renderBottomInfo(doc) {
+  const margin = 20;
+  const width = doc.page.width - margin * 2;
+  
+  const text = `Generert av NBF Planverk v${packageJson.version}`;
+
+  doc
+    .fillColor("gray")
+    .font("Helvetica-Oblique")
+    .fontSize(8)
+    .text(text, margin, doc.page.height - 30, {
+      align: "center",
+      width,
+    });
+}
+
 
 function renderFullPlan(doc/*, data*/) {
   /*renderInfoBox(doc, "Operation", [
