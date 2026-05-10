@@ -10,18 +10,88 @@
       <h1>Kommunikasjonsplan</h1>
 
       <form id="form">
-        <label>Operasjonsnavn</label>
-        <input name="operationName" />
+        <!--<label>Operasjonsnavn</label>
+        <input name="operationName" />-->
 
-        <label>Laget av</label>
-        <input name="preparedBy" />
+        <!--<label>Laget av</label>
+        <input name="preparedBy" />-->
 
-        <label>Gradering</label>
+        <!--<label>Gradering</label>
         <select name="classification">
           <option value="Ugradert">Ugradert</option>
           <option value="Konfidensielt">Konfidensielt</option>
           <option value="Strengt konfidensielt">Strengt konfidensielt</option>
-        </select>
+        </select>-->
+
+        <section>
+          <h2>Dokument</h2>
+
+          <label for="classification">Gradering</label>
+          <select id="classification" name="classification">
+            <option value="Ugradert" selected>Ugradert</option>
+            <option value="Begrenset">Begrenset</option>
+            <option value="Konfidensielt">Konfidensielt</option>
+            <option value="Hemmelig">Hemmelig</option>
+            <option value="Strengt hemmelig">Strengt hemmelig</option>
+          </select>
+
+          <label for="operationName">Operasjonsnavn</label>
+          <input id="operationName" name="operationName" />
+
+          <label for="validFrom">Gyldig fra</label>
+          <input id="validFrom" name="validFrom" type="date" />
+
+          <label for="validTo">Gyldig til</label>
+          <input id="validTo" name="validTo" type="date" />
+        </section>
+
+        <section>
+          <h2>Kanaler</h2>
+
+          <div id="channels">
+            <fieldset class="channel">
+              <legend>Kanal 1</legend>
+
+              <label>Kommunikasjonsmiddel</label>
+              <select name="channelType[]">
+                <option value="">Velg type</option>
+                <option value="VHF">VHF</option>
+                <option value="UHF">UHF</option>
+                <option value="HF">HF</option>
+                <option value="SAT">SAT</option>
+                <option value="LTE">LTE</option>
+                <option value="APP">APP</option>
+                <option value="Annet">Annet</option>
+              </select>
+
+              <label>Navn / referanse</label>
+              <input
+                name="channelReference[]"
+                placeholder="Kanal 3, 171.500 MHz, Zello: Gruppe 1"
+              />
+
+              <label>Tiltenkt bruk</label>
+              <input
+                name="channelPurpose[]"
+                placeholder="Tropp 1, øvelse, medevac, nød"
+              />
+
+              <label>PACE</label>
+              <select name="channelPace[]">
+                <option value="">Velg</option>
+                <option value="P">Primary</option>
+                <option value="A">Alternate</option>
+                <option value="C">Contingency</option>
+                <option value="E">Emergency</option>
+              </select>
+
+              <label>Kodeord</label>
+              <input name="channelCodeword[]" placeholder="F.eks. FJORD" />
+            </fieldset>
+          </div>
+
+          <button type="button" id="addChannel">Legg til kanal</button>
+        </section>
 
         <button type="submit">Eksporter PDF</button>
       </form>
