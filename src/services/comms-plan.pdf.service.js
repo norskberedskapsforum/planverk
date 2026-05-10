@@ -52,13 +52,29 @@ function renderHeader(doc, data) {
     .fillColor("white")
     .font("Helvetica-Bold")
     .fontSize(16)
-    .text("SAMBANDSOPERASJONSINSTRUKS", margin + 15, boxY + 6, {
+    .text("KOMMUNIKASJONSPLAN", margin + 15, boxY + 6, {
       align: "center",
     });
 
   doc.moveDown(1.5);
 
   doc.fillColor("black");
+}
+
+function renderBottomInfo(doc) {
+  const margin = 20;
+  const width = doc.page.width - margin * 2;
+
+  const text = `Generert av NBF Planverk v${packageJson.version}`;
+
+  doc
+    .fillColor("gray")
+    .font("Helvetica-Oblique")
+    .fontSize(8)
+    .text(text, margin, doc.page.height - 30, {
+      align: "center",
+      width,
+    });
 }
 
 function renderFullPlan(doc, data) {
@@ -72,7 +88,7 @@ function renderFullPlan(doc, data) {
   doc.moveDown();
 
   //renderChannelsTable(doc, data.channels || []);
-  let channels = [
+  /*let channels = [
     {
       reference: "Channel 1",
       type: "Email",
@@ -89,52 +105,61 @@ function renderFullPlan(doc, data) {
       codeword: "Bravo",
       backup: "Phone call",
     },
-  ];
-  renderFixedChannelTable(doc, /*data.*/ channels || []);
+  ];*/
+  renderFixedChannelTable(doc, data.channels || []);
 
   renderAuthenticationTable(doc);
 
   renderSubtractionTable(doc);
+
+  renderCodewordTable(doc, data);
+
+  renderDocInfo(doc, data);
 
   doc.moveDown();
 
   //renderSection(doc, "Fallback / backup plan", data.fallbackPlan);
 }
 
-function renderChannelSheet(doc, data) {
-  renderChannelsTable(doc, data.channels || []);
-}
+function renderDocInfo(doc, data) {
+  const margin = 20;
+  const width = 565;
 
-function renderInfoBox(doc, title, rows) {
-  doc.fontSize(13).text(title);
-  doc.moveDown(0.3);
+  doc.rect(margin, doc.page.height - 109, width, 55).stroke();
 
-  for (const [label, value] of rows) {
-    doc.fontSize(10).text(`${label}: ${value || "-"}`);
-  }
-}
+  doc
+    .fontSize(16)
+    .font("Helvetica")
+    .text(data.operationName || "N/A", margin + 5, doc.page.height - 100, {
+      width: width - 10,
+      align: "center",
+    });
 
-function renderSection(doc, title, value) {
-  doc.fontSize(13).text(title);
-  doc.moveDown(0.3);
-  doc.fontSize(10).text(value || "-");
+  const infoText = `Gyldig fra: ${data.validFrom || "N/A"} | Gyldig til: ${data.validTo || "N/A"} | Utarbeidet av: ${data.preparedBy || "N/A"}`;
+
+  doc
+    .fontSize(12)
+    .font("Helvetica")
+    .text(infoText, margin + 5, doc.page.height - 75, {
+      align: "center",
+      width: width - 10,
+    });
 }
 
 function renderFixedChannelTable(doc, channels = []) {
   const startX = 20;
   let y = 70;
 
-  const rowHeight = 14;
+  const rowHeight = 20;
   const headerHeight = 16;
-  const rows = 24;
+  const rows = 20;
 
   const columns = [
-    { key: "reference", label: "Ref", width: 70 },
-    { key: "type", label: "Type", width: 65 },
-    { key: "users", label: "Bruker", width: 110 },
-    { key: "purpose", label: "Purpose", width: 110 },
-    { key: "codeword", label: "Kodeord", width: 80 },
-    { key: "backup", label: "Backup", width: 90 },
+    { key: "type", label: "TYPE", width: 65 },
+    { key: "reference", label: "REFERANSE", width: 140 },
+    { key: "purpose", label: "FORMÅL", width: 200 },
+    { key: "codeword", label: "KODEORD", width: 120 },
+    { key: "pace", label: "PACE", width: 40 },
   ];
 
   const tableWidth = columns.reduce((sum, col) => sum + col.width, 0);
@@ -144,11 +169,11 @@ function renderFixedChannelTable(doc, channels = []) {
 
   let x = startX;
 
-  doc.fontSize(8).font("Helvetica-Bold");
+  doc.fontSize(7).font("Helvetica-Bold");
 
   for (const col of columns) {
     doc.rect(x, y, col.width, headerHeight).stroke();
-    doc.text(col.label, x + 4, y + 7, {
+    doc.text(col.label, x + 4, y + 5, {
       width: col.width - 8,
       height: headerHeight,
     });
@@ -158,7 +183,7 @@ function renderFixedChannelTable(doc, channels = []) {
   y += headerHeight;
 
   // Rows
-  doc.font("Helvetica").fontSize(8);
+  doc.font("Helvetica").fontSize(10);
 
   for (let i = 0; i < rows; i++) {
     const row = channels[i] || {};
@@ -171,7 +196,7 @@ function renderFixedChannelTable(doc, channels = []) {
 
       doc.text(value, x + 4, y + 6, {
         width: col.width - 8,
-        height: rowHeight - 4,
+        height: rowHeight - 5,
         ellipsis: true,
       });
 
@@ -185,12 +210,12 @@ function renderFixedChannelTable(doc, channels = []) {
 function renderSubtractionTable(doc) {
   const startY = 70;
   const margin = 20;
-  const tableWidth = 70;
+  const tableWidth = 77;
   const startX = doc.page.width - margin - tableWidth;
 
-  doc.rect(startX, startY, tableWidth, 390).stroke();
+  doc.rect(startX, startY, tableWidth, 416).stroke();
 
-  const rowHeight = 14;
+  const rowHeight = 15;
   const headerHeight = 16;
   const rows = 24;
 
@@ -198,7 +223,9 @@ function renderSubtractionTable(doc) {
 
   doc.fontSize(7).font("Helvetica-Bold");
 
-  doc.text("Subtraktorkode", startX + 4, startY + 7, {
+  doc.text("SUBTRAKTORKODE", startX + 4, startY + 5, {
+    width: tableWidth - 8,
+    height: headerHeight,
     align: "center",
   });
 
@@ -214,7 +241,7 @@ function renderSubtractionTable(doc) {
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
   for (const letter of alphabet) {
-    x = startX + 4;
+    let x = startX + 5;
 
     const row = {
       letter,
@@ -225,7 +252,7 @@ function renderSubtractionTable(doc) {
       //doc.rect(x, y, column.width, rowHeight).stroke();
 
       doc.text(row[column.key], x + 5, y + 6, {
-        width: column.width - 10,
+        //width: column.width - 4,
       });
 
       x += column.width;
@@ -239,11 +266,11 @@ function renderAuthenticationTable(doc) {
   const startY = 70;
   const margin = 20;
   const tableWidth = 160;
-  const startX = doc.page.width - margin - tableWidth - 70;
+  const startX = doc.page.width - margin - tableWidth - 77;
 
-  doc.rect(startX, startY, tableWidth, 390).stroke();
+  doc.rect(startX, startY, tableWidth, 416).stroke();
 
-  const rowHeight = 14;
+  const rowHeight = 15;
   const headerHeight = 16;
   const rows = 24;
 
@@ -251,7 +278,9 @@ function renderAuthenticationTable(doc) {
 
   doc.fontSize(7).font("Helvetica-Bold");
 
-  doc.text("Autorisasjonstavle", startX + 4, startY + 7, {
+  doc.text("AUTORISASJONSTAVLE", startX + 4, startY + 5, {
+    width: tableWidth - 8,
+    height: headerHeight,
     align: "center",
   });
 
@@ -267,7 +296,7 @@ function renderAuthenticationTable(doc) {
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
   for (const letter of alphabet) {
-    x = startX + 4;
+    let x = startX + 5;
 
     const row = {
       letter,
@@ -288,39 +317,28 @@ function renderAuthenticationTable(doc) {
   }
 }
 
-function renderChannelsTable(doc, channels) {
-  doc.fontSize(13).text("Channels");
-  doc.moveDown(0.5);
+function renderCodewordTable(doc, data) {
+  const startY = 486;
+  const margin = 20;
+  const tableWidth = 237;
+  const startX = doc.page.width - margin - tableWidth;
 
-  if (!channels.length) {
-    doc.fontSize(10).text("No channels added.");
-    return;
-  }
+  //doc.rect(startX, startY, tableWidth, 80).stroke();
 
-  const columns = [
-    "Reference",
-    "Type",
-    "Users",
-    "Purpose",
-    "Codeword",
-    "Backup",
+  let codewords = [
+    {
+      purpose: "Radiotaushet start/slutt",
+      codeword: "HØNE",
+    },
+    {
+      purpose: "Reelle meldinger",
+      codeword: "NO-PLAY",
+    },
+    {
+      purpose: "Kompromittert kommunikasjonsplan",
+      codeword: "KRÅKE",
+    },
   ];
-
-  doc.fontSize(9).text(columns.join(" | "));
-  doc.moveDown(0.3);
-
-  for (const channel of channels) {
-    const row = [
-      channel.reference,
-      channel.type,
-      channel.users,
-      channel.purpose,
-      channel.codeword,
-      channel.backup,
-    ];
-
-    doc.fontSize(9).text(row.map((value) => value || "-").join(" | "));
-  }
 }
 
 function generateEightDigitCode() {
