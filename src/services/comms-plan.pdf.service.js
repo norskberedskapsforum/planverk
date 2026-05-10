@@ -68,7 +68,7 @@ function renderHeader(doc, data) {
 function renderBottomInfo(doc) {
   const margin = 20;
   const width = doc.page.width - margin * 2;
-  
+
   const text = `Generert av NBF Planverk v${packageJson.version}`;
 
   doc
@@ -81,8 +81,7 @@ function renderBottomInfo(doc) {
     });
 }
 
-
-function renderFullPlan(doc/*, data*/) {
+function renderFullPlan(doc, data) {
   /*renderInfoBox(doc, "Operation", [
     ["Name", data.operationName],
     ["Valid from", data.validFrom],
@@ -117,7 +116,7 @@ function renderFullPlan(doc/*, data*/) {
 
   renderSubtractionTable(doc);
 
-  renderCodewordTable(doc, data);
+  //renderCodewordTable(doc, data);
 
   renderDocInfo(doc, data);
 
@@ -144,6 +143,38 @@ function renderFullPlan(doc/*, data*/) {
   doc.moveDown(0.3);
   doc.fontSize(10).text(value || "-");
 }*/
+
+function renderDocInfo(doc, data) {
+  const margin = 20;
+
+  const startY = doc.page.height - 109;
+
+  doc.rect(margin, startY, doc.page.width - margin * 2, 70).stroke();
+
+  doc
+    .fontSize(16)
+    .text(
+      `${data.operationName || "KOMMUNIKASJONSPLAN"}`,
+      margin + 10,
+      startY + 10,
+      {
+        align: "center",
+        width: doc.page.width - margin * 2 - 20,
+      },
+    );
+
+  /*doc
+    .fontSize(10)
+    .text(`Valid from: ${data.validFrom || "-"}`, margin + 10, startY + 45);
+
+  doc
+    .fontSize(10)
+    .text(`Valid to: ${data.validTo || "-"}`, margin + 10, startY + 60);
+
+  doc
+    .fontSize(10)
+    .text(`Prepared by: ${data.preparedBy || "-"}`, margin + 10, startY + 75);*/
+}
 
 function renderFixedChannelTable(doc, channels = []) {
   const startX = 20;
