@@ -1,5 +1,7 @@
 const PDFDocument = require("pdfkit");
 
+const packageJson = require(process.cwd() + "/package.json");
+
 async function generate(type, data, res) {
   const doc = new PDFDocument({
     size: "A4",
@@ -15,6 +17,8 @@ async function generate(type, data, res) {
   renderHeader(doc, data);
 
   renderFullPlan(doc, data);
+
+  renderBottomInfo(doc);
 
   doc.end();
 }
@@ -64,7 +68,7 @@ function renderHeader(doc, data) {
 function renderBottomInfo(doc) {
   const margin = 20;
   const width = doc.page.width - margin * 2;
-
+  
   const text = `Generert av NBF Planverk v${packageJson.version}`;
 
   doc
@@ -77,7 +81,8 @@ function renderBottomInfo(doc) {
     });
 }
 
-function renderFullPlan(doc, data) {
+
+function renderFullPlan(doc/*, data*/) {
   /*renderInfoBox(doc, "Operation", [
     ["Name", data.operationName],
     ["Valid from", data.validFrom],
@@ -121,30 +126,24 @@ function renderFullPlan(doc, data) {
   //renderSection(doc, "Fallback / backup plan", data.fallbackPlan);
 }
 
-function renderDocInfo(doc, data) {
-  const margin = 20;
-  const width = 565;
+/*function renderChannelSheet(doc, data) {
+  renderChannelsTable(doc, data.channels || []);
+}*/
 
-  doc.rect(margin, doc.page.height - 109, width, 55).stroke();
+/*function renderInfoBox(doc, title, rows) {
+  doc.fontSize(13).text(title);
+  doc.moveDown(0.3);
 
-  doc
-    .fontSize(16)
-    .font("Helvetica")
-    .text(data.operationName || "N/A", margin + 5, doc.page.height - 100, {
-      width: width - 10,
-      align: "center",
-    });
+  for (const [label, value] of rows) {
+    doc.fontSize(10).text(`${label}: ${value || "-"}`);
+  }
+}*/
 
-  const infoText = `Gyldig fra: ${data.validFrom || "N/A"} | Gyldig til: ${data.validTo || "N/A"} | Utarbeidet av: ${data.preparedBy || "N/A"}`;
-
-  doc
-    .fontSize(12)
-    .font("Helvetica")
-    .text(infoText, margin + 5, doc.page.height - 75, {
-      align: "center",
-      width: width - 10,
-    });
-}
+/*function renderSection(doc, title, value) {
+  doc.fontSize(13).text(title);
+  doc.moveDown(0.3);
+  doc.fontSize(10).text(value || "-");
+}*/
 
 function renderFixedChannelTable(doc, channels = []) {
   const startX = 20;
@@ -217,7 +216,7 @@ function renderSubtractionTable(doc) {
 
   const rowHeight = 15;
   const headerHeight = 16;
-  const rows = 24;
+  //const rows = 24;
 
   doc.rect(startX, startY, tableWidth, headerHeight).stroke();
 
@@ -236,12 +235,12 @@ function renderSubtractionTable(doc) {
     { label: "Code", key: "code", width: tableWidth - 60 },
   ];
 
-  y = startY + 20;
+  let y = startY + 20;
 
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
   for (const letter of alphabet) {
-    let x = startX + 5;
+    let x = startX + 4;
 
     const row = {
       letter,
@@ -272,7 +271,7 @@ function renderAuthenticationTable(doc) {
 
   const rowHeight = 15;
   const headerHeight = 16;
-  const rows = 24;
+  //const rows = 24;
 
   doc.rect(startX, startY, tableWidth, headerHeight).stroke();
 
@@ -291,12 +290,12 @@ function renderAuthenticationTable(doc) {
     { label: "Code", key: "code", width: tableWidth - 20 },
   ];
 
-  y = startY + 20;
+  let y = startY + 20;
 
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
   for (const letter of alphabet) {
-    let x = startX + 5;
+    let x = startX + 4;
 
     const row = {
       letter,
@@ -317,11 +316,9 @@ function renderAuthenticationTable(doc) {
   }
 }
 
-function renderCodewordTable(doc, data) {
-  const startY = 486;
-  const margin = 20;
-  const tableWidth = 237;
-  const startX = doc.page.width - margin - tableWidth;
+/*function renderChannelsTable(doc, channels) {
+  doc.fontSize(13).text("Channels");
+  doc.moveDown(0.5);
 
   //doc.rect(startX, startY, tableWidth, 80).stroke();
 
@@ -339,7 +336,23 @@ function renderCodewordTable(doc, data) {
       codeword: "KRÅKE",
     },
   ];
-}
+
+  doc.fontSize(9).text(columns.join(" | "));
+  doc.moveDown(0.3);
+
+  for (const channel of channels) {
+    const row = [
+      channel.reference,
+      channel.type,
+      channel.users,
+      channel.purpose,
+      channel.codeword,
+      channel.backup,
+    ];
+
+    doc.fontSize(9).text(row.map((value) => value || "-").join(" | "));
+  }
+}*/
 
 function generateEightDigitCode() {
   const number = Math.floor(10000000 + Math.random() * 90000000).toString();
